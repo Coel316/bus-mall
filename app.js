@@ -3,8 +3,10 @@
 var leftImageEl = document.getElementById('left');
 var rightImageEl = document.getElementById('right');
 var centerImageEl = document.getElementById('center');
-
 var containerEl = document.getElementById('image_container');
+
+var totalClicks = 0;
+// var amtOfTries = 25;
 
 // leftImageEl.src = 'images/bag.jpg';
 // leftImageEl.name = 'bag.jpg';
@@ -15,6 +17,8 @@ var containerEl = document.getElementById('image_container');
 // rightImageEl.title = 'boots.jpg';
 
 var allProducts = [];
+
+Product.uniquePicsArray = [];
 
 function Product(name) {
   this.name = name;
@@ -33,48 +37,47 @@ function makeRandom() {
 
 function renderProducts() {
   //create an array to hold unique indexes
-  var uniquePicsArray = [];
-  uniquePicsArray[0] = makeRandom();
-  uniquePicsArray[1] = makeRandom();
+  // var uniquePicsArray = [];
+  Product.uniquePicsArray[0] = makeRandom();
+  Product.uniquePicsArray[1] = makeRandom();
 
   //////////////////////////////////////////////////////////
   //created a 3rd array to hold indexes
-  uniquePicsArray[2] = makeRandom();
+  Product.uniquePicsArray[2] = makeRandom();
   //////////////////////////////////////////////////////////
 
-  while (uniquePicsArray[0] === uniquePicsArray[1]) {
+  while (Product.uniquePicsArray[0] === Product.uniquePicsArray[1]) {
     // console.log('Duplicate found, Re-rolling');
-    uniquePicsArray[1] = makeRandom();
+    Product.uniquePicsArray[1] = makeRandom();
   }
 
   // add views here
-  allProducts[uniquePicsArray[0]].views++;
+  allProducts[Product.uniquePicsArray[0]].views++;
 
   //get a random index
   //display a product whose index is the random number
-  leftImageEl.src = allProducts[uniquePicsArray[0]].path;
-  leftImageEl.name = allProducts[uniquePicsArray[0]].name;
-  leftImageEl.title = allProducts[uniquePicsArray[0]].name;
+  leftImageEl.src = allProducts[Product.uniquePicsArray[0]].path;
+  leftImageEl.name = allProducts[Product.uniquePicsArray[0]].name;
+  leftImageEl.title = allProducts[Product.uniquePicsArray[0]].name;
 
   //add views here
-  allProducts[uniquePicsArray[1]].views++;
+  allProducts[Product.uniquePicsArray[1]].views++;
 
-  rightImageEl.src = allProducts[uniquePicsArray[1]].path;
-  rightImageEl.name = allProducts[uniquePicsArray[1]].name;
-  rightImageEl.title = allProducts[uniquePicsArray[1]].name;
+  rightImageEl.src = allProducts[Product.uniquePicsArray[1]].path;
+  rightImageEl.name = allProducts[Product.uniquePicsArray[1]].name;
+  rightImageEl.title = allProducts[Product.uniquePicsArray[1]].name;
 
   //////////////////////////////////////////////////////////
   //add views here & 3rd picture
-  allProducts[uniquePicsArray[2]].views++;
+  allProducts[Product.uniquePicsArray[2]].views++;
 
-  centerImageEl.src = allProducts[uniquePicsArray[2]].path;
-  centerImageEl.name = allProducts[uniquePicsArray[2]].name;
-  centerImageEl.title = allProducts[uniquePicsArray[2]].name;
+  centerImageEl.src = allProducts[Product.uniquePicsArray[2]].path;
+  centerImageEl.name = allProducts[Product.uniquePicsArray[2]].name;
+  centerImageEl.title = allProducts[Product.uniquePicsArray[2]].name;
   //////////////////////////////////////////////////////////
 }
 
 // renderProducts();
-
 
 new Product('bag');
 new Product('banana');
@@ -101,14 +104,38 @@ new Product('wine-glass');
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
+  if (totalClicks === 25) {
+    containerEl.removeEventListener('click', handleClick);
+
+    for (var i = 0; i < allProducts.length; i++) {
+      var listItem = document.createElement('li');
+      listItem.textContent = allProducts[i].name + ' had ' + allProducts[i].views + ' Views ' + ' and ' + allProducts[i].votes + ' Votes';
+      list.appendChild(listItem);
+    }
+  }
+
   for (var i = 0; i < allProducts.length; i++) {
     if (allProducts[i].name === chosenImage) {
       allProducts[i].votes++;
+      allProducts[i].views++;
     }
   }
-  renderProducts();
-}
 
+  totalClicks++;
+  renderProducts();
+  console.log('TOTAL CLICKS: ', totalClicks);
+
+  // if (totalClicks === amtOfTries){
+  //   containerEl.remove();
+  // }
+}
+renderProducts();
+
+// allProducts[i].name + ' has ' + allProducts.name;
 containerEl.addEventListener('click', handleClick);
 
-renderProducts();
+var list = document.getElementById('tally');
+
+
+
+
