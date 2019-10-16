@@ -106,7 +106,6 @@ new Product('usb');
 new Product('water-can');
 new Product('wine-glass');
 
-
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
@@ -182,6 +181,14 @@ var makeChart = function () {
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 0, 0, 0.2)',
           'rgb(255,255,0, 0.5)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -196,6 +203,14 @@ var makeChart = function () {
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 0, 0, 0.2)',
           'rgb(255,255,0, 0.5)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)',
 
         ],
         borderWidth: 1
@@ -212,5 +227,3 @@ var makeChart = function () {
     }
   });
 };
-
- 
