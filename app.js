@@ -17,8 +17,14 @@ var totalClicks = 0;
 // rightImageEl.title = 'boots.jpg';
 
 var allProducts = [];
-
 Product.uniquePicsArray = [];
+
+Product.pics = [
+  document.getElementById('left'),
+  document.getElementById('left'),
+  document.getElementById('left'),
+
+]
 
 function Product(name) {
   this.name = name;
@@ -29,8 +35,8 @@ function Product(name) {
 }
 
 function makeRandom() {
-  //below was --> return Math.floor(Math.random() * allProducts.length);
-  //without --> return num;
+  // below was --> return Math.floor(Math.random() * allProducts.length);
+  // without --> return num;
   var num = Math.floor(Math.random() * allProducts.length);
   return num;
 }
@@ -105,13 +111,17 @@ function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
   if (totalClicks === 25) {
-    containerEl.removeEventListener('click', handleClick);
+    //Need to remove this container
+    // containerEl.removeEventListener('click', handleClick);
+    containerEl.remove();
+    makeChart();
 
-    for (var i = 0; i < allProducts.length; i++) {
-      var listItem = document.createElement('li');
-      listItem.textContent = allProducts[i].name + ' had ' + allProducts[i].views + ' Views ' + ' and ' + allProducts[i].votes + ' Votes';
-      list.appendChild(listItem);
-    }
+
+    // This was a display of view & votes:
+    // for (var i = 0; i < allProducts.length; i++) {
+    //   var listItem = document.createElement('li');
+    //   listItem.textContent = allProducts[i].name + ' had ' + allProducts[i].views + ' Views ' + ' and ' + allProducts[i].votes + ' Votes';
+    //   list.appendChild(listItem);
   }
 
   for (var i = 0; i < allProducts.length; i++) {
@@ -129,6 +139,7 @@ function handleClick() {
   //   containerEl.remove();
   // }
 }
+
 renderProducts();
 
 // allProducts[i].name + ' has ' + allProducts.name;
@@ -136,6 +147,70 @@ containerEl.addEventListener('click', handleClick);
 
 var list = document.getElementById('tally');
 
+Product.barNames = [];
+Product.barVotes = [];
 
 
+var createViewData = function () {
+  for (var i = 0; i < allProducts.length; i++) {
 
+    Product.barNames.push(allProducts[i].name);
+    Product.barVotes.push(allProducts[i].votes);
+  }
+};
+
+var makeChart = function () {
+  createViewData();
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Product.barNames,
+      datasets: [{
+        label: '# of Votes',
+        data: Product.barVotes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 0, 0, 0.2)',
+          'rgb(255,255,0, 0.5)',
+
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+};
+
+ 
