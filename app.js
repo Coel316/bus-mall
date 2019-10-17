@@ -53,9 +53,11 @@ function renderProducts() {
   Product.uniquePicsArray[2] = makeRandom();
   //////////////////////////////////////////////////////////
 
-  while (Product.uniquePicsArray[0] === Product.uniquePicsArray[1]) {
-    // console.log('Duplicate found, Re-rolling');
+  while (Product.uniquePicsArray[0] === Product.uniquePicsArray[1] || Product.uniquePicsArray[0] === Product.uniquePicsArray[2] || Product.uniquePicsArray[1] === Product.uniquePicsArray[2]) {
+    console.log('Duplicate found, Re-rolling');
     Product.uniquePicsArray[1] = makeRandom();
+    Product.uniquePicsArray[2] = makeRandom();
+
   }
 
   // add views here
@@ -83,8 +85,9 @@ function renderProducts() {
   centerImageEl.title = allProducts[Product.uniquePicsArray[2]].name;
   //////////////////////////////////////////////////////////
 
-  if (leftImageEl === rightImageEl || rightImageEl === centerImageEl || leftImageEl === centerImageEl) {
+  if (leftImageEl === rightImageEl && rightImageEl === centerImageEl && leftImageEl === centerImageEl) {
     renderProducts();
+    console.log('Duplicate found, Re-rolling');
   }
 
 }
@@ -142,9 +145,9 @@ function retrieveInfo() {
   var parsedallProducts = JSON.parse(storageallProducts);
 
   for (var i = 0; i < parsedallProducts.length; i++) {
-    var newProduct = new Product(parsedallProducts[i].name);
-    newProduct.votes = parsedallProducts[i].votes;
-    newProduct.views = parsedallProducts[i].view;
+    new Product(parsedallProducts[i].name);
+    // newProduct.votes = parsedallProducts[i].votes;
+    // newProduct.views = parsedallProducts[i].view;
 
   }
 }
@@ -178,7 +181,6 @@ else {
   new Product('wine-glass');
 
 }
-
 
 renderProducts();
 
