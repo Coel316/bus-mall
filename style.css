@@ -1,0 +1,44 @@
+body {
+  width: 900px;
+  background-color: rgb(16, 85, 85);
+}
+
+#image_container {
+display: inline;
+text-align: center;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+  /* border: solid;
+  border-color: yellow;
+  border-width: 10px; */
+}
+
+
+#image_container img:hover {
+  /* border-color: yellow; */
+  outline: 5px dashed red;
+  transform: rotate(359deg);
+  /* background-color: yellow; */
+}
+
+#myChart {
+  height: 75px;
+  width: 50px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+p {
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+}

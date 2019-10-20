@@ -34,6 +34,14 @@ function Product(name) {
   allProducts.push(this);
 }
 
+function uniquePicsGen() {
+  while (Product.uniquePicsArray.length < 6) {
+    var random = makeRandom();
+    while (!Product.uniquePicsArray.includes(random)) {
+      Product.uniquePicsArray.push(random);
+    }
+  }
+}
 
 function makeRandom() {
   // below was --> return Math.floor(Math.random() * allProducts.length);
@@ -57,7 +65,6 @@ function renderProducts() {
     console.log('Duplicate found, Re-rolling');
     Product.uniquePicsArray[1] = makeRandom();
     Product.uniquePicsArray[2] = makeRandom();
-
   }
 
   // add views here
@@ -89,7 +96,6 @@ function renderProducts() {
     renderProducts();
     console.log('Duplicate found, Re-rolling');
   }
-
 }
 
 // renderProducts();
@@ -98,7 +104,7 @@ function renderProducts() {
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
-  if (totalClicks === 20) {
+  if (totalClicks === 25) {
     //Need to remove this container
     // containerEl.removeEventListener('click', handleClick);
     containerEl.remove();
@@ -195,7 +201,6 @@ Product.barVotes = [];
 
 var createViewData = function () {
   for (var i = 0; i < allProducts.length; i++) {
-
     Product.barNames.push(allProducts[i].name);
     Product.barVotes.push(allProducts[i].votes);
   }
